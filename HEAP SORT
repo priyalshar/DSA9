@@ -1,0 +1,50 @@
+#include<iostream>
+using namespace std;
+#define max 10
+
+void heapify(int a[],int i,int size)
+{
+    int child,temp,key,left,right;
+    key=a[i];
+    left=2*i+1;
+    right=left+1;
+    child=left;
+    if(left<size && a[left]<a[right])
+    child=right;
+    if(child<=size && key<a[child])
+    {
+        temp=a[i];
+        a[i]=a[child];
+        a[child]=temp;
+        heapify(a,child,size);
+    }
+}
+
+void heapsort(int a[],int n)
+{
+    int i,temp,pos;
+    for(i=n/2-1;i>=0;i--)
+    heapify(a,i,n-1);
+    for(pos=n-1;pos>=1;pos--)
+    {
+        temp=a[0];
+        a[0]=a[pos];
+        a[pos]=temp;
+        heapify(a,0,pos-1);
+    }
+}
+
+int main()
+{   int i,n,a[max];
+    cout<<"how many elements you want";
+    cin>>n;
+    cout<<"enter the elements";
+    for(i=0;i<n;i++)
+    cin>>a[i];
+    heapsort(a,n);
+    cout<<"sorted data";
+    for(i=0;i<n;i++)
+    cout<<" "<<a[i];
+    return 0;
+
+}
